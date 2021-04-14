@@ -1,4 +1,9 @@
 (function () {
+    let avva_boo = document.querySelector(".h1");
+    avva_boo.addEventListener("click", () => {
+       alert("hello!");
+    });
+
     class Calculator {
         constructor() {}
 
@@ -30,4 +35,4 @@
     console.log("Умножение 5 * 5 = " + calculator.multiplication(5,5));
     console.log("Деление 5 / 5 = " + calculator.division(5,5));
     console.log("Остаток от деления 10 % 9 = " + calculator.surplus(10, 9));
-}());
+})();
