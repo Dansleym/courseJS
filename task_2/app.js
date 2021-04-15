@@ -1,5 +1,5 @@
 (function(){
-    //Изменения на строках: 24, 107 - 112!!!
+    //Изменения на строках: 24, 83-89, 114-118!!!
 
     let app_el = document.getElementById('app');
     let add_btn = app_el.querySelector('.js_add');
@@ -21,7 +21,7 @@
         let tasks_html = tasks.map(function(value, index) {
             return `
                 <div class="js_todo_item row" data-index="${index}">
-                    <div class="c5 js_item_text ${value.status ? 'through' : ''}">${value.name}</div>
+                    <div class="c5 js_item_text ${value.status ? 'through' : ''}" data-action="through">${value.name}</div>
                     <div class="c2 js_item_action">
                         <button type="button" data-action="edit" title="Edit">!</button>
                         <button type="button" data-action="remove" title="Remove">X</button>
@@ -80,6 +80,14 @@
         endEdit();
     }
 
+    function throughItem(index) {
+        if(index !== -1) {
+            tasks[index].status = !tasks[index].status;
+            saveData();
+            render();
+        }
+    }
+
     render();
 
     console.log(todo_items);
@@ -103,14 +111,13 @@
                 console.log('RUN REMOVE ACTION: ', index);
                 removeTask(index);
                 break;
-            default:
+            case 'through':
                 index = Array.prototype.indexOf.call(todo_items, todo_item);
-                if(index !== -1) {
-                    tasks[index].status = !tasks[index].status;
-                    saveData();
-                    render();
-                }
-
+                console.log('RUN THROUGH ACTION: ', index);
+                throughItem(index);
+                break;
+            default:
+                console.log('RUN DEFAULT ACTION: ', index);
                 break;
         }
         console.log('===== END ======');
